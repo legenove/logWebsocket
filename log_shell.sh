@@ -1,6 +1,6 @@
 #!/bin/bash
 PROJDIR="/data/app/dev/logWebsocket"
-APP_EXEC="pm2 start index.js -i 1 --name 'log_api'"
+APP_EXEC="pm2 start index.js -i 1 --name 'log_api'" -o ./logs/out.log -e ./logs/error.log
 
 function start_server() {
     cd $PROJDIR

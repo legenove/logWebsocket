@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <input id="fileInput" type="text" name="fname" />
+  <button onclick="clickStart()">点击</button>
+  <button onclick="clickStop()">停止</button>
+  <title>tail.js</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <style>
+    body
+      { color: #1a2c37;
+        font-family: 'Helvetica', sans-serif; font-size: 86%;
+        padding: 2em; }
+    #info
+      { font-size: 120%;
+        font-weight: bold; }
+    #tail
+      { border: 1px solid #ccc;
+        height: 300px;
+        padding: 0.5em;
+        overflow: hidden;
+        position: relative;
+        overflow-y: scroll; }
+  </style>
+
+</head>
+<body>
+  <pre id="info"></pre>
+  <pre id="tail"></pre>
+  
+  <script>
+  const socket = io.connect('http://127.0.0.1:3030/');
+  let connected = false;
+  let Application = function() {
+    socket.on('welcome', function (data) {
+      console.log(data);
+      connected = true;
+    });
+    socket.on('filename', function (data) {
+      $('#info').html( '$ tail -f ' + data.filename );
+    });
+    socket.on('tail', function (data) {
+      $('#tail').html( $('#tail').html() + data.tail );
+      bottom = $("#tail")[0].scrollHeight - $("#tail").height()
+      $('#tail').scrollTop(bottom);
+      
+    })
+  };
+  function clickStart() {
+     socket.emit('file', {fileName: document.getElementById('fileInput').value})
+  }
+  function clickStop() {
+     socket.emit('stop', {fileName: document.getElementById('fileInput').value})
+  }
+  $(function() { var app = Application(); });
+  
+  // socket.on('connection', function() {
+  //     console.log('Connected to:', socket.host);
+  //   });
+  //   socket.on('message', function(message) {
+  //     console.log('Received message:', message);
+  //     if (message.filename) {
+  //       $('#info').html( '$ tail -f ' + message.filename );
+  //     };
+  //     if (message.tail) {
+  //       $('#tail').html( $('#tail').html() + message.tail );
+  //       bottom = $("#tail")[0].scrollHeight - $("#tail").height()
+  //       $('#tail').scrollTop(bottom);
+  //
+  //     }
+  //   });
+  
+  
+  </script>
+
+</body>
+</html>

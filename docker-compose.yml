@@ -1,0 +1,13 @@
+#########
+# !! if you want use docker-compose,
+# !! you should build image first use the following commond .
+# docker build -f Dockerfile -t log_websocket .
+#########
+
+
+log:
+  image: log_websocket
+  volumes:
+        - .:/app/
+  working_dir: /app/
+  command: bash -c "rm -rf node_modules/ && cp -r /requiments/node_modules ./ && npm run build"

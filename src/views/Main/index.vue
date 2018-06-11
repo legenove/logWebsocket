@@ -187,13 +187,13 @@
         let currentInfo = this.getCurrentInfo('restart-log')
         currentInfo.datas=[]
         this.disconnectServer(currentInfo)
-        let currentInfo = this.getCurrentInfo('docker-app')
+        currentInfo = this.getCurrentInfo('docker-app')
         this.disconnectServer(currentInfo)
         currentInfo.datas=[]
-        let currentInfo = this.getCurrentInfo('docker-api')
+        currentInfo = this.getCurrentInfo('docker-api')
         this.disconnectServer(currentInfo)
         currentInfo.datas=[]
-        let currentInfo = this.getCurrentInfo('docker-front')
+        currentInfo = this.getCurrentInfo('docker-front')
         this.disconnectServer(currentInfo)
         currentInfo.datas=[]
       },

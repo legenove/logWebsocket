@@ -27,7 +27,7 @@ let getCommandInfo = function (dtype, serverName) {
     command = 'docker'
     first = ["logs", "-f", fileName, "--tail", "5"]
   } else if (dtype == 'docker') {
-    fileName = `${serverName}_ps`
+    fileName = `${serverName}`
     command = 'docker'
     first = ["ps", "--format", '"{{.ID}}\t{{.CreatedAt}}\t{{.Image}}\t{{.Status}}\t{{.Ports}}"']
     grep = [fileName]
@@ -115,6 +115,13 @@ const logWebsocket = function (server, config) {
         let connectData = data
         tail.stdout.on("data", function (data) {
           console.log('datareturn', fileName, fileNames, fileNames[fileName] == 1)
+          if (fileNames[fileName] == 1){
+            console.log(data.toString('utf-8'))
+            socket.emit( 'tail', { tail : data.toString('utf-8') , type: connectData.type, serverName: connectData.serverName} )
+          }
+        });
+        .stderr.on('data', function (data) {
+          console.log('stderr: ');
           if (fileNames[fileName] == 1){
             console.log(data.toString('utf-8'))
             socket.emit( 'tail', { tail : data.toString('utf-8') , type: connectData.type, serverName: connectData.serverName} )

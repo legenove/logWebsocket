@@ -120,7 +120,7 @@ const logWebsocket = function (server, config) {
             socket.emit( 'tail', { tail : data.toString('utf-8') , type: connectData.type, serverName: connectData.serverName} )
           }
         });
-        .stderr.on('data', function (data) {
+        tail.stderr.on('data', function (data) {
           console.log('stderr: ');
           if (fileNames[fileName] == 1){
             console.log(data.toString('utf-8'))

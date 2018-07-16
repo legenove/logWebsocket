@@ -111,7 +111,7 @@
 				socketConnect: true,
         interval: null,
 				socket: null,
-				serverList: ['dev1', 'dev2', 'dev3', 'dev4', 'dev5', 'dev6', "dev7"],
+				serverList: ['dev1', 'dev2', 'dev3', 'dev4', 'dev5', 'dev6', "dev7", "dev8"],
 				serverName: "dev1",
         versionInfo: {datas: ""},
         dockerInfo: {datas: [],

@@ -9,6 +9,6 @@ var index = express();
 var server = require('http').createServer(index);
 
 websocket(server, config)
-
+//proxy(server, config)
 
 index.use('/', express.static(__dirname + config.staticDir));

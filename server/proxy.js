@@ -5,7 +5,7 @@ const axios = require('axios')
 const proxy = function (app, config) {
   const BASE_TOKEN = config.baseToken
   const HOSTS = {
-    'liveme-finance': config.debug ? config.testApiHost : config.apiHost
+    'liveme-finance': config.debug ? config.testFinanceApiHost : config.financeApiHost
   }
 
   app.use('/*liveme-finance/*', function (req, res, next) {
@@ -27,7 +27,7 @@ const proxy = function (app, config) {
 
     let opts = {
       url: path,
-      baseURL: HOSTS[host] + config.path,
+      baseURL: HOSTS[host],
       method: req.method,
       headers: {
         Authorization: token
